@@ -40,3 +40,5 @@ ah.st.cfg
 /x64/Release
 /alh/x64
 /x64/Debug
+/ah.regexp.cfg
+/templates.cfg

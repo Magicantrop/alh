@@ -1,0 +1,42 @@
+# autoconf creates these ephemeral files
+config.log
+config.h
+config.status
+Makefile
+
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Temporary and Backup
+*~
+*.bak
+vc_mswu/
+vc_mswud/
+run/
+*.vcxproj*
+ah.aps
+
+#output files
+ah
+ah.stderr
+ah.stdout
+ah.cfg
+ah.st.cfg
+/x64/Release
+/alh/x64
+/x64/Debug

@@ -36,23 +36,85 @@ Also there will be explicitely written if any of students is not studying anymor
 * ReceiveDlg.
 In alh.cfg there is a section `RECEIVE_DLG_SETTINGS` related to it. In field `REC_DLG_GROUPS` may be listed groups with which ReceiveDlg will work, as with items. For example, `REC_DLG_GROUPS = trade_items,food` mean, that in ReceiveDlg in drop up list there will be possibility to choose `trade_items` or `food`, and get list of all units having any items belonging to the group. Those entities (trade_items and food) have to be defined in section `UNIT_PROPERTY_GROUPS`.
 
-### TODO
-* enable for users to choose a phase of calculations. [future]
-* fix issue with speed of turtles in the ocean [future]
-* new units not counted in production stats [non-reproducable]
-* TAX_RULES -- should have default values, as STRUCTURES.
-* Layout 1 failure -- figure out why [non-reproducable]
-* Performance: `ResolveAlias` split to 2 new methods `AliasSkills` and `AliasGeneral`(for the rest weird aliases if they really exist)
-* Performance: `CalcWeightsAndMovement` replace by existing `unit_control::get_weights(unit, weights)` && `unit_control::get_move_state(unit)`
-* move to config settings for Phase Calculation
-* move to config settings for Warehouse categories
-* caravan autogenerate movement -> should be parsed
-* unit_pane doesn't represent skills of a new unit with given skilled peasants
-* allowed multiple monthlong orders (not just teach) - or is it a feature to avoid mistakes?
-* add to hex filter possibility to show unit with specific orders/comments
+
 
 
 ## Changelog:
+### Mar 17 2026
+## Version 2.7.x - New Features and Improvements
+
+This version introduces significant enhancements to improve gameplay experience and automation:
+
+### 1. Enhanced Command Processing
+- **@FORM commands**: Proper handling of repeated FORM commands with the `@` prefix
+- Units created with FORM now correctly preserve the repeat flag for subsequent turns
+
+### 2. Month-long Order Tracking
+- Visual highlighting in the unit panel for units with **multiple month-long orders** (warning)
+- Visual highlighting for units **without any month-long orders**
+- Configurable colors for different states
+- Automatic detection of month-long orders from configurable list (WORK, STUDY, PRODUCE, etc.)
+- Warning comments automatically added to orders when multiple month-long commands are detected
+
+### 3. Template System
+- **Create templates**: Save any NEW unit as a template from its context menu
+- **Deploy templates**: Create identical new units from any existing (non-NEW) unit using saved templates
+- All templates stored in `ah.template.cfg` file
+- Templates preserve all orders, flags, and settings from the original unit
+
+### 4. Enhanced Unit Description
+- Added **"At the end turn"** section in unit description
+- Shows predicted unit state for the next turn
+- Displays items and skills (partial implementation - items and skills visible)
+
+### 5. Improved Order Generation
+- Commands like **GIVE, TAKE, TEACH, PRODUCE** now automatically add informative comments to Orders
+- Comments provide additional context about what the command does
+- Helps track and understand complex order sequences
+
+### 6. New Context Menu Items
+- **Give Items** - Dialog for generating GIVE commands
+- **Take Items** - Dialog for generating TAKE commands  
+- **Produce** - Dialog for generating PRODUCE commands
+- **Transport** - Dialog for generating TRANSPORT commands (for Quartermasters)
+- **Create from template** - Deploy units from saved templates
+
+### 7. Battle Integration
+- Add units to battle sides (Attackers/Defenders) via context menu
+- Edit and manage battle participant lists
+- Export battle data in formats compatible with:
+  - **New Origin** server battle simulators
+  - **New Age** server battle simulators
+- Streamlined battle preparation workflow
+
+### 8. Dynamic Configuration Updates
+- Update `ah.cfg` configuration based on in-game information from SHOW commands
+- Extract skill, item, and structure information from game reports
+- **Regex-based rule system** in `ah.regexp.cfg`:
+  - Adapt to server description changes without recompilation
+  - Extract aliases, study costs, weights, production requirements
+  - Update skill maximums, trade item flags, structure attributes
+  - Rules can be modified during gameplay
+
+### 9. SHOW Command Integration
+- **New buttons** in skill, item, and object description dialogs:
+  - **Request** - Generate SHOW command for selected item/skill/object
+  - **Request All** - Generate SHOW commands for all items in the list
+  - **Reconfig** - Update configuration using selected descriptions
+- Automatically parses codes and levels from item names (e.g., "fire [FIRE] 2")
+- Uses aliases from configuration for more readable commands
+
+## Building from Source
+
+### Development Environment
+This version was built and tested using **Microsoft Visual Studio 2022**.
+
+### Requirements
+- C++17 compatible compiler
+- wxWidgets 3.x
+- Python 3.x development libraries
+
+
 ### Oct 28 2020
 - fixed config.h bug.
 - Economy report: calculated just for local faction (loaded using "Load Report").
